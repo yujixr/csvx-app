@@ -37,7 +37,7 @@ jobs:
         run: yarn
 
       - name: Generate static project 🏭
-        run: yarn lint
+        run: yarn generate
 
       - name: Deploy application 🚢
         uses: peaceiris/actions-gh-pages@v3
