@@ -35,25 +35,15 @@
           <option>Column</option>
         </select>
         <input
-          v-model="insert_remove_pos"
+          v-model.number="insert_remove_pos"
           type="number"
           min="0"
           placeholder="position"
           class="pure-input-1-4"
         />
-        <button
-          class="pure-button"
-          :disabled="row_or_column == '' || insert_remove_pos == ''"
-        >
-          Insert
-        </button>
-        <button
-          class="pure-button"
-          :disabled="row_or_column == '' || insert_remove_pos == ''"
-        >
-          Remove
-        </button>
-        <p v-if="row_or_column != '' && insert_remove_pos != ''">
+        <button class="pure-button" :disabled="!is_insertable">Insert</button>
+        <button class="pure-button" :disabled="!is_removable">Remove</button>
+        <p v-if="is_insertable">
           Insert / Remove a {{ row_or_column }} at {{ insert_remove_pos }}
         </p>
       </fieldset>
@@ -119,6 +109,24 @@ export default Vue.extend({
           this.table[this.edit_x][this.edit_y] = value
         }
       },
+    },
+    is_insertable() {
+      return (
+        this.row_or_column !== '' &&
+        Number.isInteger(this.insert_remove_pos) &&
+        this.insert_remove_pos >= 0 &&
+        this.insert_remove_pos <=
+          (this.row_or_column === 'row' ? this.y_size : this.x_size)
+      )
+    },
+    is_removable() {
+      return (
+        this.row_or_column !== '' &&
+        Number.isInteger(this.insert_remove_pos) &&
+        this.insert_remove_pos >= 0 &&
+        this.insert_remove_pos <
+          (this.row_or_column === 'row' ? this.y_size : this.x_size)
+      )
     },
   },
   methods: {
