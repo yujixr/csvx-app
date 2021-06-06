@@ -12,7 +12,9 @@
             <nuxt-link to="/about" class="pure-menu-link">About</nuxt-link>
           </li>
           <li class="pure-menu-item">
-            <nuxt-link to="/developer" class="pure-menu-link">Developer</nuxt-link>
+            <nuxt-link to="/developer" class="pure-menu-link">
+              Developer
+            </nuxt-link>
           </li>
           <li class="pure-menu-item">
             <nuxt-link to="/contact" class="pure-menu-link">Contact</nuxt-link>

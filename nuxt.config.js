@@ -17,10 +17,7 @@ export default {
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
-  css: [
-    'purecss/build/pure-min.css',
-    'purecss/build/grids-responsive-min.css'
-  ],
+  css: ['purecss/build/pure-min.css', 'purecss/build/grids-responsive-min.css'],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [],

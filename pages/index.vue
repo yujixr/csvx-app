@@ -4,22 +4,22 @@
       <fieldset>
         <legend class="pure-u-1">Edit</legend>
         <input
+          v-model.number="edit_x"
           type="number"
-          v-model="x"
           min="0"
           placeholder="x"
           class="pure-u-1-12"
         />
         <input
+          v-model.number="edit_y"
           type="number"
-          v-model="y"
           min="0"
           placeholder="y"
           class="pure-u-1-12"
         />
         <input
+          v-model="edit_data"
           type="text"
-          v-model="new_data"
           placeholder="value or formula"
           class="pure-u-5-6"
           :disabled="is_valid_position == false"
@@ -35,8 +35,8 @@
           <option>Column</option>
         </select>
         <input
-          type="number"
           v-model="insert_remove_pos"
+          type="number"
           min="0"
           placeholder="position"
           class="pure-input-1-4"
@@ -54,8 +54,8 @@
     </div>
     <table class="pure-table pure-table-bordered">
       <tbody>
-        <tr v-for="(column, y) in table" v-bind:key="y">
-          <td v-for="(item, x) in column" v-bind:key="x">
+        <tr v-for="(column, y) in table" :key="y">
+          <td v-for="(item, x) in column" :key="x">
             {{ item }}
           </td>
         </tr>
@@ -68,11 +68,11 @@
 import Vue from 'vue'
 export default Vue.extend({
   data: () => ({
-    x_internal: 0,
-    y_internal: 0,
+    edit_x_internal: 0,
+    edit_y_internal: 0,
     x_size: 5,
     y_size: 5,
-    new_data_internal: '0',
+    edit_data_internal: '0',
     is_valid_position: true,
     insert_or_remove: '',
     row_or_column: '',
@@ -86,68 +86,53 @@ export default Vue.extend({
     ],
   }),
   computed: {
-    x: {
+    edit_x: {
       get() {
-        return this.x_internal
+        return this.edit_x_internal
       },
       set(value: number) {
-        this.update_edit_pos(value, this.y)
+        this.update_edit_pos(value, this.edit_y)
       },
     },
-    y: {
+    edit_y: {
       get() {
-        return this.y_internal
+        return this.edit_y_internal
       },
       set(value: number) {
-        this.update_edit_pos(this.x, value)
+        this.update_edit_pos(this.edit_x, value)
       },
     },
-    new_data: {
+    edit_data: {
       get() {
-        return this.new_data_internal
+        return this.edit_data_internal
       },
       set(value: string) {
-        this.new_data_internal = value
+        this.edit_data_internal = value
 
-        if (
-          this.x < 0 ||
-          this.x_size <= this.x ||
-          this.y < 0 ||
-          this.y_size <= this.y
-        ) {
-          return
+        if (this.is_valid_position) {
+          this.table[this.edit_x][this.edit_y] = value
         }
-
-        try {
-          let table = this.table
-          table[this.x][this.y] = value
-          this.table = table
-        } catch (error) {}
       },
     },
   },
   methods: {
     update_edit_pos(x: number, y: number) {
-      this.x_internal = x
-      this.y_internal = y
+      this.edit_x_internal = x
+      this.edit_y_internal = y
 
       if (
-        this.x < 0 ||
-        this.x_size <= this.x ||
-        this.y < 0 ||
-        this.y_size <= this.y
+        !Number.isInteger(x) ||
+        !Number.isInteger(y) ||
+        this.edit_x < 0 ||
+        this.x_size <= this.edit_x ||
+        this.edit_y < 0 ||
+        this.y_size <= this.edit_y
       ) {
-        this.new_data_internal = ''
+        this.edit_data_internal = ''
         this.is_valid_position = false
-        return
-      }
-
-      try {
-        this.new_data_internal = this.table[this.x][this.y]
+      } else {
+        this.edit_data_internal = this.table[this.edit_x][this.edit_y]
         this.is_valid_position = true
-      } catch (error) {
-        this.new_data_internal = ''
-        this.is_valid_position = false
       }
     },
   },
