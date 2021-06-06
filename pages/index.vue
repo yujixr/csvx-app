@@ -41,13 +41,19 @@
           placeholder="position"
           class="pure-input-1-4"
         />
-        <button class="pure-button" :disabled="row_or_column == ''">
+        <button
+          class="pure-button"
+          :disabled="row_or_column == '' || insert_remove_pos == ''"
+        >
           Insert
         </button>
-        <button class="pure-button" :disabled="row_or_column == ''">
+        <button
+          class="pure-button"
+          :disabled="row_or_column == '' || insert_remove_pos == ''"
+        >
           Remove
         </button>
-        <p v-if="row_or_column != ''">
+        <p v-if="row_or_column != '' && insert_remove_pos != ''">
           Insert / Remove a {{ row_or_column }} at {{ insert_remove_pos }}
         </p>
       </fieldset>
