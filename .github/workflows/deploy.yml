@@ -36,8 +36,11 @@ jobs:
       - name: Install dependencies 👨🏻‍💻
         run: yarn
 
-      - name: Generate static site 🏭
-        run: yarn build & yarn next export
+      - name: Generate production build 🏭
+        run: yarn build
+
+      - name: Export static site 🧑‍🏭
+        run: yarn next export
 
       - name: Deploy application 🚢
         uses: peaceiris/actions-gh-pages@v3
