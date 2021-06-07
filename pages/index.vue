@@ -51,7 +51,20 @@
     <table class="pure-table pure-table-bordered">
       <tbody>
         <tr v-for="(column, y) in table" :key="y">
-          <td v-for="(item, x) in column" :key="x">
+          <td
+            v-for="(item, x) in column"
+            :key="x"
+            :title="'(' + x + ', ' + y + ')'"
+            @click="
+              edit_x = x
+              edit_y = y
+              if (row_or_column === 'Row') {
+                insert_remove_pos = y
+              } else if (row_or_column === 'Column') {
+                insert_remove_pos = x
+              }
+            "
+          >
             {{ item }}
           </td>
         </tr>
