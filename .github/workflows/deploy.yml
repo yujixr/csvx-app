@@ -43,7 +43,7 @@ jobs:
         run: wasm-pack build --target web
       
       - name: Copy wasm file 🚜
-        run: cp pkg/csvx_client_bg.wasm public/csvx.wasm
+        run: cp pkg/csvx_app_bg.wasm public/csvx.wasm
 
       - name: Generate production build 🏭
         run: yarn build
