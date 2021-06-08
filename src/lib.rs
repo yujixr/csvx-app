@@ -99,11 +99,7 @@ pub fn insert_y(y: usize) -> Result<JsValue, JsValue> {
 pub fn remove_x(x: usize) -> Result<JsValue, JsValue> {
     match TABLE.lock() {
         Ok(mut table) => {
-            if let Some(row) = table.get_raw_table().get(0) {
-                if row.len() != 1 {
-                    table.remove_x(x);
-                }
-            }
+            table.remove_x(x);
             Ok(JsValue::NULL)
         }
         Err(e) => Err(JsValue::from_str(e.to_string().as_str())),
@@ -114,9 +110,7 @@ pub fn remove_x(x: usize) -> Result<JsValue, JsValue> {
 pub fn remove_y(y: usize) -> Result<JsValue, JsValue> {
     match TABLE.lock() {
         Ok(mut table) => {
-            if table.get_raw_table().len() != 1 {
-                table.remove_y(y);
-            }
+            table.remove_y(y);
             Ok(JsValue::NULL)
         }
         Err(e) => Err(JsValue::from_str(e.to_string().as_str())),

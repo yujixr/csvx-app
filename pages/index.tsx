@@ -142,12 +142,12 @@ export default function Home() {
             onClick={() => {
               if (rowOrColumn == 'Row') {
                 insert_y(insertRemovePos);
+                setYSize(get_y_size());
               }
               else {
                 insert_x(insertRemovePos);
+                setXSize(get_x_size());
               }
-              setXSize(get_x_size());
-              setYSize(get_y_size());
             }}>Insert</button>
           <button className='pure-button'
             disabled={rowOrColumn === '' ||
@@ -157,12 +157,12 @@ export default function Home() {
             onClick={() => {
               if (rowOrColumn == 'Row') {
                 remove_y(insertRemovePos);
+                setYSize(get_y_size());
               }
               else {
                 remove_x(insertRemovePos);
+                setXSize(get_x_size());
               }
-              setXSize(get_x_size());
-              setYSize(get_y_size());
             }}>Remove</button>
           {rowOrColumn !== '' &&
             <p>Insert / Remove a {rowOrColumn} at {insertRemovePos}</p>
