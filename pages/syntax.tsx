@@ -253,11 +253,11 @@ export default function Syntax() {
                 </tr>
                 <tr>
                     <td>e</td>
-                    <td>Euler's number (e)</td>
+                    <td>Euler&apos;s number (e)</td>
                 </tr>
                 <tr>
                     <td>pi</td>
-                    <td>Archimedes' constant (π)</td>
+                    <td>Archimedes&apos; constant (π)</td>
                 </tr>
                 <tr>
                     <td>tau</td>
