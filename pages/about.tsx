@@ -7,6 +7,7 @@ export default function About() {
             <title>About | CSVX</title>
             <meta name='description' content='Comma-Separated Values eXtended' />
             <link rel='icon' href='/favicon.ico' />
+            <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "059777082b524a5f9db8f2d35ef5d3df"}'></script>
         </Head>
         <h1>About CSVX</h1>
         <p>CSVX is an extension of CSV format. This extension allows you to use CSV as a spreadsheet.</p>
