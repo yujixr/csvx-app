@@ -163,7 +163,9 @@ export default function Home() {
               setXSize(get_x_size());
               setYSize(get_y_size());
             }}>Remove</button>
-          <p>Insert / Remove a {rowOrColumn} at {insertRemovePos}</p>
+          {rowOrColumn !== '' &&
+            <p>Insert / Remove a {rowOrColumn} at {insertRemovePos}</p>
+          }
         </fieldset>
       </div>
       <table className='pure-table pure-table-bordered'>
