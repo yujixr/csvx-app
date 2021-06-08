@@ -8,7 +8,7 @@ export default function About() {
             <meta name='description' content='Comma-Separated Values eXtended' />
             <link rel='icon' href='/favicon.ico' />
         </Head>
-        <h2>About CSVX</h2>
+        <h1>About CSVX</h1>
         <p>CSVX is an extension of CSV format. This extension allows you to use CSV as a spreadsheet.</p>
         <p>Current CSVX library is implemented by Rust 🦀.</p>
         <p><a href='https://github.com/yujixr/csvx' target="_blank" rel="noreferrer" className='pure-button pure-button-primary'>Visit GitHub repo</a></p>

@@ -19,7 +19,7 @@ function MyApp({ Component, pageProps }: AppProps) {
             <Link href='/about'><a className='pure-menu-link'>About</a></Link>
           </li>
           <li className='pure-menu-item'>
-            <a href='https://github.com/yujixr/csvx/blob/main/syntax.md' target="_blank" rel="noreferrer" className='pure-menu-link'>Syntax</a>
+            <Link href='/syntax'><a className='pure-menu-link'>Syntax</a></Link>
           </li>
           <li className='pure-menu-item'>
             <a href='https://yuji.ne.jp' target="_blank" rel="noreferrer" className='pure-menu-link'>Developer&apos;s Site</a>
