@@ -36,6 +36,12 @@ jobs:
       - name: Install dependencies 👨🏻‍💻
         run: yarn
 
+      - name: Build WebAssembly file 🤖
+        run: wasm-pack build --target web
+      
+      - name: Copy wasm file 🚜
+        run: cp pkg/csvx_client_bg.wasm public/csvx.wasm
+
       - name: Generate production build 🏭
         run: yarn build
 

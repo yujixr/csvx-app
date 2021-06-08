@@ -1,53 +1,80 @@
 import Head from 'next/head'
 import React, { useEffect, useState } from 'react'
+import init, {
+  get_x_size, get_y_size, get_raw_item, get_calculated_item, update_item,
+  insert_x, insert_y, remove_x, remove_y
+} from '../pkg/csvx_client.js';
+
+var wasm = undefined;
+
+function loadTable(xSize: number, ySize: number) {
+  let table = [] as string[][];
+  for (let y = 0; y < ySize; y++) {
+    let row = [];
+    for (let x = 0; x < xSize; x++) {
+      row.push(get_calculated_item(x, y));
+    }
+    table.push(row);
+  }
+  return table
+}
 
 export default function Home() {
-  const [xSize, setXSize] = useState(5);
-  const [ySize, setYSize] = useState(5);
-  const [table, setTable] = useState([
-    ['0', '1', '2', '3', '4'],
-    ['5', '6', '7', '8', '9'],
-    ['10', '11', '12', '13', '14'],
-    ['15', '16', '17', '18', '19'],
-    ['20', '21', '22', '23', '24'],
-  ]);
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  const [xSize, setXSize] = useState(0);
+  const [ySize, setYSize] = useState(0);
+  const [table, setTable] = useState([] as string[][]);
 
   const [editX, setEditX] = useState(0);
   const [editY, setEditY] = useState(0);
   const [editFormula, setEditFormula] = useState('');
+  const [isValidPosition, setIsValidPosition] = useState(false);
 
   const [rowOrColumn, setRowOrColumn] = useState('');
   const [insertRemovePos, setInsertRemovePos] = useState(0);
 
   useEffect(() => {
-    if (isValidPosition) {
-      setEditFormula(table[editY][editX])
-    } else {
-      setEditFormula('')
+    if (isLoaded) {
+      setEditFormula(get_raw_item(editX, editY));
     }
-  })
+  }, [editX, editY, table])
 
   useEffect(() => {
-    setXSize(table[0].length)
-    setYSize(table.length)
-  })
+    setIsValidPosition(
+      isLoaded &&
+      0 <= editX &&
+      editX < xSize &&
+      0 <= editY &&
+      editY < ySize);
+  }, [table, editX, editY, xSize, ySize]);
 
-  const isValidPosition = (0 <= editX &&
-    editX < xSize &&
-    0 <= editY &&
-    editY < ySize);
-  const isInsertable = (
-    rowOrColumn !== '' &&
-    insertRemovePos >= 0 &&
-    insertRemovePos <=
-    (rowOrColumn === 'row' ? ySize : xSize)
-  );
-  const isRemovable = (
-    rowOrColumn !== '' &&
-    insertRemovePos >= 0 &&
-    insertRemovePos <
-    (rowOrColumn === 'row' ? ySize : xSize)
-  );
+  useEffect(() => {
+    init('/csvx.wasm').then(v => {
+      console.log('Loaded')
+      wasm = v;
+      setIsLoaded(true);
+      setXSize(get_x_size());
+      setYSize(get_y_size());
+    });
+  }, []);
+
+
+  useEffect(() => {
+    setTable(loadTable(xSize, ySize));
+  }, [xSize, ySize]);
+
+  useEffect(() => {
+    if (table.length != 0 &&
+      table[0].length != 0 &&
+      0 <= editX &&
+      editX < xSize &&
+      0 <= editY &&
+      editY < ySize) {
+      update_item(editX, editY, editFormula);
+      setTable(loadTable(xSize, ySize));
+    }
+  }, [editFormula])
 
   return (
     <div>
@@ -83,8 +110,6 @@ export default function Home() {
             value={editFormula}
             onChange={e => {
               setEditFormula(e.target.value)
-              table[editY][editX] = e.target.value
-              setTable(table)
             }}
             type='text'
             placeholder='value or formula'
@@ -109,10 +134,36 @@ export default function Home() {
             placeholder='position'
             className='pure-input-1-4'
           />
-          <button className='pure-button' disabled={!isInsertable}>Insert</button>
-          <button className='pure-button' disabled={!isRemovable}>Remove</button>
-          {isInsertable ? <p>Insert / Remove a {rowOrColumn} at {insertRemovePos}</p>
-            : <div></div>}
+          <button className='pure-button'
+            disabled={rowOrColumn === '' ||
+              insertRemovePos < 0 ||
+              (rowOrColumn === 'Row' ? ySize : xSize) < insertRemovePos}
+            onClick={() => {
+              if (rowOrColumn == 'Row') {
+                insert_y(insertRemovePos);
+              }
+              else {
+                insert_x(insertRemovePos);
+              }
+              setXSize(get_x_size());
+              setYSize(get_y_size());
+            }}>Insert</button>
+          <button className='pure-button'
+            disabled={rowOrColumn === '' ||
+              insertRemovePos < 0 ||
+              (rowOrColumn === 'Row' ? ySize : xSize) <= insertRemovePos ||
+              (rowOrColumn === 'Row' ? ySize : xSize) == 1}
+            onClick={() => {
+              if (rowOrColumn == 'Row') {
+                remove_y(insertRemovePos);
+              }
+              else {
+                remove_x(insertRemovePos);
+              }
+              setXSize(get_x_size());
+              setYSize(get_y_size());
+            }}>Remove</button>
+          <p>Insert / Remove a {rowOrColumn} at {insertRemovePos}</p>
         </fieldset>
       </div>
       <table className='pure-table pure-table-bordered'>
