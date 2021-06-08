@@ -5,12 +5,12 @@ import init, {
   insert_x, insert_y, remove_x, remove_y
 } from '../pkg/csvx_client.js';
 
-var wasm = undefined;
+let wasm = undefined;
 
-function loadTable(xSize: number, ySize: number) {
-  let table = [] as string[][];
+function loadTable(xSize: number, ySize: number): string[][] {
+  const table = [] as string[][];
   for (let y = 0; y < ySize; y++) {
-    let row = [];
+    const row = [];
     for (let x = 0; x < xSize; x++) {
       row.push(get_calculated_item(x, y));
     }

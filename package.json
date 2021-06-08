@@ -6,7 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint:js": "eslint --ext \".js,.tsx\" --ignore-path .gitignore .",
+    "lint:js": "eslint --ext \".tsx\" --ignore-path .gitignore .",
     "lint": "yarn lint:js"
   },
   "dependencies": {
