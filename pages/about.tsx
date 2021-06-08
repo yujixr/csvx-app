@@ -11,7 +11,7 @@ export default function About() {
         </Head>
         <h2>About CSVX</h2>
         <p>CSVX is an extension of CSV format. This extension allows you to use CSV as a spreadsheet.</p>
-        <p>Current CSVX library is implemented by Rust🦀.</p>
+        <p>Current CSVX library is implemented by Rust 🦀.</p>
         <p><a href='https://github.com/yujixr/csvx' target="_blank" className='pure-button pure-button-primary'>Visit GitHub repo</a></p>
         <img className='pure-img' src='example.png'></img>
         <h2>About this spreadsheet application</h2>
