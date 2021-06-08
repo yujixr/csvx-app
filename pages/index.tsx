@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import init, {
   get_x_size, get_y_size, get_raw_item, get_calculated_item, update_item,
   insert_x, insert_y, remove_x, remove_y
-} from '../pkg/csvx_client.js';
+} from '../pkg/csvx_app.js';
 
 let wasm = undefined;
 
