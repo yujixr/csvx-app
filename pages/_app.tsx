@@ -19,10 +19,10 @@ function MyApp({ Component, pageProps }: AppProps) {
             <Link href='/about'><a className='pure-menu-link'>About</a></Link>
           </li>
           <li className='pure-menu-item'>
-            <a href='https://github.com/yujixr/csvx' target="_blank" className='pure-menu-link'>GitHub</a>
+            <a href='https://github.com/yujixr/csvx' target="_blank" rel="noreferrer" className='pure-menu-link'>GitHub</a>
           </li>
           <li className='pure-menu-item'>
-            <a href='https://yuji.ne.jp' target="_blank" className='pure-menu-link'>Developer's Site</a>
+            <a href='https://yuji.ne.jp' target="_blank" rel="noreferrer" className='pure-menu-link'>Developer&apos;s Site</a>
           </li>
         </ul>
       </div>
