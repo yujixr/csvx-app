@@ -51,7 +51,6 @@ export default function Home() {
 
   useEffect(() => {
     init('/csvx.wasm').then(v => {
-      console.log('Loaded')
       wasm = v;
       setIsLoaded(true);
       setXSize(get_x_size());
