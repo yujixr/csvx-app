@@ -6,7 +6,7 @@ use wasm_bindgen::prelude::*;
 
 lazy_static! {
     static ref TABLE: Mutex<Table> = Mutex::new(
-        Table::new("0,1,2,3,4\n5,6,7,8,9\n10,11,12,13,14\n15,16,17,18,19\n20,21,22,23,24").unwrap()
+        Table::new("pi,3^5,\"ref(0,0)\",-(1/0)\n12%5,\"pow(3,5)\",0/NaN,\"\"\"Apollo\"\"\"\nA1+A2,\"if(true , sqrt(25),round(if(false,1.1,2.5)))\",D2+1969,").unwrap()
     );
 }
 
