@@ -2,7 +2,7 @@ import Head from 'next/head'
 import React, { useEffect, useState } from 'react'
 import init, {
   get_x_size, get_y_size, get_raw_item, get_calculated_item, update_item,
-  insert_x, insert_y, remove_x, remove_y
+  insert_x, insert_y, remove_x, remove_y, export_raw_table, export_calculated_table
 } from '../pkg/csvx_app.js';
 
 let wasm = undefined;
@@ -118,10 +118,10 @@ export default function Home() {
           />
         </fieldset>
       </div>
-      <div className='pure-form'>
+      <div className='pure-form pure-g'>
         <fieldset>
-          <legend>Insert / Remove</legend>
-          <select value={rowOrColumn} onChange={e => setRowOrColumn(e.target.value)} className='pure-input-1-4'>
+          <legend className='pure-u-1'>Insert / Remove</legend>
+          <select value={rowOrColumn} onChange={e => setRowOrColumn(e.target.value)} className='pure-u-1-4'>
             <option disabled value=''>Please Select</option>
             <option>Row</option>
             <option>Column</option>
@@ -132,40 +132,79 @@ export default function Home() {
             type='number'
             min='0'
             placeholder='position'
-            className='pure-input-1-4'
+            className='pure-u-1-4'
           />
-          <button className='pure-button'
-            disabled={rowOrColumn === '' ||
-              insertRemovePos < 0 ||
-              (rowOrColumn === 'Row' ? ySize : xSize) < insertRemovePos}
-            onClick={() => {
-              if (rowOrColumn == 'Row') {
-                insert_y(insertRemovePos);
-                setYSize(get_y_size());
-              }
-              else {
-                insert_x(insertRemovePos);
-                setXSize(get_x_size());
-              }
-            }}>Insert</button>
-          <button className='pure-button'
-            disabled={rowOrColumn === '' ||
-              insertRemovePos < 0 ||
-              (rowOrColumn === 'Row' ? ySize : xSize) <= insertRemovePos ||
-              (rowOrColumn === 'Row' ? ySize : xSize) == 1}
-            onClick={() => {
-              if (rowOrColumn == 'Row') {
-                remove_y(insertRemovePos);
-                setYSize(get_y_size());
-              }
-              else {
-                remove_x(insertRemovePos);
-                setXSize(get_x_size());
-              }
-            }}>Remove</button>
+          <div className='pure-button-group pure-u-1-2' role='group'>
+            <button className='pure-button'
+              disabled={rowOrColumn === '' ||
+                insertRemovePos < 0 ||
+                (rowOrColumn === 'Row' ? ySize : xSize) < insertRemovePos}
+              onClick={() => {
+                if (rowOrColumn == 'Row') {
+                  insert_y(insertRemovePos);
+                  setYSize(get_y_size());
+                }
+                else {
+                  insert_x(insertRemovePos);
+                  setXSize(get_x_size());
+                }
+              }}>Insert</button>
+            <button className='pure-button'
+              disabled={rowOrColumn === '' ||
+                insertRemovePos < 0 ||
+                (rowOrColumn === 'Row' ? ySize : xSize) <= insertRemovePos ||
+                (rowOrColumn === 'Row' ? ySize : xSize) == 1}
+              onClick={() => {
+                if (rowOrColumn == 'Row') {
+                  remove_y(insertRemovePos);
+                  setYSize(get_y_size());
+                }
+                else {
+                  remove_x(insertRemovePos);
+                  setXSize(get_x_size());
+                }
+              }}>Remove</button>
+          </div>
           {rowOrColumn !== '' &&
-            <p>Insert / Remove a {rowOrColumn} at {insertRemovePos}</p>
+            <p className='pure-u-1'>Insert / Remove a {rowOrColumn} at {insertRemovePos}</p>
           }
+        </fieldset>
+      </div>
+      <div className='pure-form'>
+        <fieldset>
+          <legend>Export</legend>
+          <div className='pure-button-group' role='group'>
+            <button className='pure-button'
+              disabled={!isLoaded}
+              onClick={() => {
+                const blob = new Blob([export_raw_table()]);
+                const url = URL.createObjectURL(blob);
+                const link = document.createElement('a');
+                link.href = url;
+                link.setAttribute(
+                  'download',
+                  `export.csvx`,
+                );
+                document.body.appendChild(link);
+                link.click();
+                link.parentNode?.removeChild(link);
+              }}>Export as raw CSVX</button>
+            <button className='pure-button'
+              disabled={!isLoaded}
+              onClick={() => {
+                const blob = new Blob([export_calculated_table()]);
+                const url = URL.createObjectURL(blob);
+                const link = document.createElement('a');
+                link.href = url;
+                link.setAttribute(
+                  'download',
+                  `export.csv`,
+                );
+                document.body.appendChild(link);
+                link.click();
+                link.parentNode?.removeChild(link);
+              }}>Export as rendered CSV</button>
+          </div>
         </fieldset>
       </div>
       <table className='pure-table pure-table-bordered'>
@@ -193,6 +232,6 @@ export default function Home() {
           )}
         </tbody>
       </table>
-    </div>
+    </div >
   )
 }

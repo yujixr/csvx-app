@@ -116,3 +116,25 @@ pub fn remove_y(y: usize) -> Result<JsValue, JsValue> {
         Err(e) => Err(JsValue::from_str(e.to_string().as_str())),
     }
 }
+
+#[wasm_bindgen]
+pub fn export_raw_table() -> Result<String, JsValue> {
+    match TABLE.lock() {
+        Ok(table) => match table.export_raw_table() {
+            Ok(export) => Ok(export),
+            Err(e) => Err(JsValue::from_str(e.to_string().as_str())),
+        },
+        Err(e) => Err(JsValue::from_str(e.to_string().as_str())),
+    }
+}
+
+#[wasm_bindgen]
+pub fn export_calculated_table() -> Result<String, JsValue> {
+    match TABLE.lock() {
+        Ok(table) => match table.export_calculated_table() {
+            Ok(export) => Ok(export),
+            Err(e) => Err(JsValue::from_str(e.to_string().as_str())),
+        },
+        Err(e) => Err(JsValue::from_str(e.to_string().as_str())),
+    }
+}
