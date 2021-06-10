@@ -1,3 +1,4 @@
+import { NextPage } from 'next';
 import Head from 'next/head'
 import React, { useEffect, useState } from 'react'
 import init, {
@@ -19,7 +20,7 @@ function loadTable(xSize: number, ySize: number): string[][] {
   return table
 }
 
-export default function Home() {
+const Home: NextPage = () => {
   const [isLoaded, setIsLoaded] = useState(false);
 
   const [xSize, setXSize] = useState(0);
@@ -79,9 +80,6 @@ export default function Home() {
     <div>
       <Head>
         <title>Home | CSVX</title>
-        <meta name='description' content='Comma-Separated Values eXtended' />
-        <link rel='icon' href='/favicon.ico' />
-        <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "059777082b524a5f9db8f2d35ef5d3df"}'></script>
       </Head>
       <div className='pure-form pure-g'>
         <fieldset>
@@ -170,6 +168,15 @@ export default function Home() {
           }
         </fieldset>
       </div>
+      {/* <div className='pure-form'>
+        <fieldset>
+          <legend>Import</legend>
+          <input type="file" accept=".csvx" onChange={console.log} />
+          <button className='pure-button'
+            disabled={!isLoaded}
+          >Import CSVX</button>
+        </fieldset>
+      </div> */}
       <div className='pure-form'>
         <fieldset>
           <legend>Export</legend>
@@ -188,7 +195,7 @@ export default function Home() {
                 document.body.appendChild(link);
                 link.click();
                 link.parentNode?.removeChild(link);
-              }}>Export as raw CSVX</button>
+              }}>Export as CSVX</button>
             <button className='pure-button'
               disabled={!isLoaded}
               onClick={() => {
@@ -234,4 +241,6 @@ export default function Home() {
       </table>
     </div >
   )
-}
+};
+
+export default Home;

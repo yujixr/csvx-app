@@ -36,4 +36,12 @@ yarn-error.log*
 /target
 Cargo.lock
 
-/public/csvx.wasm
+**//public/csvx.wasm
+**/public/precache.*.*.js
+**/public/sw.js
+**/public/workbox-*.js
+**/public/worker-*.js
+**/public/precache.*.*.js.map
+**/public/sw.js.map
+**/public/workbox-*.js.map
+**/public/worker-*.js.map
