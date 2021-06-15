@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "build:wasm": "wasm-pack build --target web; rm -f public/csvx.wasm; cp pkg/csvx_app_bg.wasm public/csvx.wasm",
     "build": "next build",
     "start": "next start",
     "lint:js": "eslint --ext \".tsx\" --ignore-path .gitignore .",
