@@ -40,10 +40,7 @@ jobs:
         run: curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh 
 
       - name: Build WebAssembly file 🤖
-        run: wasm-pack build --target web
-      
-      - name: Copy wasm file 🚜
-        run: cp pkg/csvx_app_bg.wasm public/csvx.wasm
+        run: yarn build:wasm
 
       - name: Generate production build 🏭
         run: yarn build
