@@ -11,7 +11,7 @@
     "lint": "yarn lint:js"
   },
   "dependencies": {
-    "next": "10.2.3",
+    "next": "11.0.0",
     "next-pwa": "^5.2.21",
     "purecss": "^2.0.6",
     "react": "17.0.2",
