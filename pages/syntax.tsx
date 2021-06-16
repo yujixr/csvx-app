@@ -39,6 +39,10 @@ const Syntax: NextPage = () => {
                     <td>Ref</td>
                     <td>Specify the rows in uppercase letters and the columns in numbers. For example, the upper left is A1, and the one to the right is B1.</td>
                 </tr>
+                <tr>
+                    <td>Range</td>
+                    <td>The range is represented by two Ref type values. For example, A1:B2.</td>
+                </tr>
             </tbody>
         </table>
         <h2>Supported Operators</h2>
@@ -142,6 +146,14 @@ const Syntax: NextPage = () => {
                 <tr>
                     <td>ref(x, y)</td>
                     <td>Deprecated. Returns the value at (x, y).</td>
+                </tr>
+                <tr>
+                    <td>sum(range)</td>
+                    <td>Returns the sum of the values in the range.</td>
+                </tr>
+                <tr>
+                    <td>avg(range)</td>
+                    <td>Returns the average of the values in the range.</td>
                 </tr>
                 <tr>
                     <td>if(condition, on_true, on_false)</td>
