@@ -145,7 +145,7 @@ const Syntax: NextPage = () => {
             <tbody>
                 <tr>
                     <td>ref(x, y)</td>
-                    <td>Deprecated. Returns the value at (x, y).</td>
+                    <td>Returns the value at (x, y).</td>
                 </tr>
                 <tr>
                     <td>sum(range)</td>
