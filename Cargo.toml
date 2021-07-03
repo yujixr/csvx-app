@@ -20,5 +20,5 @@ crate-type = ["cdylib"]
 
 [dependencies]
 wasm-bindgen = "0.2"
-csvx = "0.1.15"
+csvx = "0.1.17"
 lazy_static = "1.4"
