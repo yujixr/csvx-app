@@ -2,7 +2,7 @@
 name = "csvx-app"
 version = "0.1.0"
 authors = ["YUJI <mail@yuji.ne.jp>"]
-edition = "2018"
+edition = "2021"
 
 description = "CSVX wrapper for WebAssembly"
 repository = "https://github.com/yujixr/csvx-app"
